@@ -16,7 +16,7 @@ export default function AuthApp() {
     const token = "fake-jwt-" + Date.now();
 
     // JWT'yi localStorage yerine host-app'e query param ile gönder
-    const hostAppURL = `https://host-app.vercel.app?token=${token}`;
+    const hostAppURL = `https://shell-app-psi.vercel.app/?token=${token}`;
     window.location.href = hostAppURL;
 
     console.log("Mock login successful:", token);
