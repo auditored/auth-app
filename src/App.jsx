@@ -12,9 +12,13 @@ export default function AuthApp() {
       return;
     }
 
+    // Mock JWT oluştur
     const token = "fake-jwt-" + Date.now();
-    localStorage.setItem("auth_token", token);
-    window.dispatchEvent(new Event("storage"));
+
+    // JWT'yi localStorage yerine host-app'e query param ile gönder
+    const hostAppURL = `https://host-app.vercel.app?token=${token}`;
+    window.location.href = hostAppURL;
+
     console.log("Mock login successful:", token);
   };
 
@@ -23,9 +27,9 @@ export default function AuthApp() {
       <div className="w-full max-w-[250px] bg-black/80 text-white rounded-lg shadow-lg p-10">
         <h1 className="text-3xl font-bold text-center mb-6">Sign In</h1>
 
-        {error ? (
+        {error && (
           <p className="p-3 bg-red-500 text-white rounded mb-4">{error}</p>
-        ) : null}
+        )}
 
         <form onSubmit={login} className="w-full flex flex-col ">
           <input
@@ -37,7 +41,7 @@ export default function AuthApp() {
           />
           <input
             onChange={(e) => setPassword(e.target.value)}
-            className="p-3  my-2 bg-gray-700 rounded w-1/2 mx-auto"
+            className="p-3 my-2 bg-gray-700 rounded w-1/2 mx-auto"
             type="password"
             placeholder="Password"
             autoComplete="current-password"
@@ -52,7 +56,6 @@ export default function AuthApp() {
             <p className="cursor-pointer hover:underline">Need Help?</p>
           </div>
           <p className="py-8 text-center">
-
             <span className="cursor-pointer text-white hover:underline">
               Sign Up
             </span>
